@@ -30,6 +30,64 @@ STEP-5: Combine all these groups to get the complete cipher text.
 
 ## PROGRAM 
 
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char text[100];
+    int key[3][3], i, j, k, sum, len;
+
+    printf("Enter the plaintext: ");
+    scanf("%99s", text);
+
+    printf("Enter the 3x3 key:\n");
+    for (i = 0; i < 3; i++)
+        for (j = 0; j < 3; j++)
+            scanf("%d", &key[i][j]);
+
+    for (i = 0; text[i] != '\0'; i++)
+        text[i] = toupper(text[i]);
+
+    len = strlen(text);
+
+    while (len % 3 != 0) {
+        text[len++] = 'X';
+        text[len] = '\0';
+    }
+
+    printf("Cipher text: ");
+
+    for (i = 0; i < len; i += 3) {
+        for (j = 0; j < 3; j++) {
+            sum = 0;
+            for (k = 0; k < 3; k++)
+                sum += key[j][k] * (text[i + k] - 'A');
+
+            printf("%c", (sum % 26) + 'A');
+        }
+    }
+
+    printf("\n");
+    return 0;
+}
 ## OUTPUT
+```
+Enter the plaintext: Pranavi
+Enter the 3x3 key:
+1
+55
+75
+17
+6
+35
+27
+72
+7
+Cipher text: OTRCUEINF
+```
+<img width="552" height="427" alt="image" src="https://github.com/user-attachments/assets/2f75a2d7-8f3a-45d9-9e7e-667da921902a" />
+
 
 ## RESULT
+Thus the implementation of hill cipher had been executed successfully.
